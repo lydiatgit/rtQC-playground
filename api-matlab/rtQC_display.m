@@ -59,6 +59,7 @@ end
 
 % Setup all UIcontrols and GUI components
 rtQC_display_setup;
+
 % Set callbacks
 gui_data.tgroup.SelectionChangedFcn = @tabChangedCallback;
 gui_data.pb_help.Callback = @linkToGithub;
@@ -91,6 +92,7 @@ gui_data.pb_initialize.Callback = @initialize;
 gui_data.pb_startRT.Callback = @startRT;
 gui_data.pb_stopRT.Callback = @stopRT;
 gui_data.popup_setDim.Callback = @setDim;
+gui_data.popup_setVendor.Callback = @setVendor;
 gui_data.sld_slice.Callback = @changeSlice;
 gui_data.popup_setImg.Callback = @setImg;
 gui_data.edit_structural_pre.Callback = @editStructural;
@@ -113,6 +115,7 @@ gui_data.pb_roi2_pre.Callback = @setROI2;
 
 gui_data.QCtgroup.SelectionChangedFcn = @QCtabChangedCallback;
 gui_data.pb_open_qc_post.Callback = @generateReport;
+gui_data.pb_get_physio_batch.Callback = @physioBatch;
 
 
 set(findall(fig, '-property', 'Interruptible'), 'Interruptible', 'on')
@@ -1099,6 +1102,9 @@ drawnow;
 % guidata(fig, gui_data);
 end
 
+function setVendor(hObject,eventdata)
+
+end
 
 function setDim(hObject,eventdata)
 
@@ -1454,6 +1460,17 @@ fclose(fid);
 url = ['file:///' gui_data.qc_out_dir filesep log_name];
 web(url, '-browser')
 
+end
+
+function physioBatch(hObject,eventdata)
+    fig = ancestor(hObject,'figure');
+    gui_data = guidata(fig);
+    
+    vendor = gui_data.popup_setVendor.String(gui_data.popup_setVendor.Value);
+    disp("Vendor:");
+    disp(vendor);
+    wrapper_physiobatch('BIDS', 16, 1.45, 408, 0, 1, 'C:\Users\nwiedemann\Downloads\physio_out');
+    % wrapper_physiobatch(data_vendor, nr_slices, TR, nr_scans, nr_dummies, onset_slice, out_dir);
 end
 
 function showFDoutliers(hObject,eventdata)
