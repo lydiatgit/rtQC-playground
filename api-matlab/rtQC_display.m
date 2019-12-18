@@ -1473,7 +1473,7 @@ function physioBatch(hObject,eventdata)
       onPath = any(contains(pathCell, 'PhysIO'));
     end
     if ~onPath
-        disp("ERROR: Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.");
+        error("ERROR: Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.");    
     end
     
     % get guidata
