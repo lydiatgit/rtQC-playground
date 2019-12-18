@@ -1,4 +1,4 @@
-function matlabbatch = wrapper_physiobatch(data_vendor, nr_slices, TR, nr_scans, nr_dummies, onset_slice, out_dir)
+function matlabbatch = wrapper_physiobatch(data_vendor, out_dir)
     spm_jobman('initcfg');
     global defaults
     defaults.stats.maxmem   = 2^30;
@@ -67,16 +67,19 @@ function matlabbatch = wrapper_physiobatch(data_vendor, nr_slices, TR, nr_scans,
         throw(ME);
     end
     
+    % read scan parameters
+    input_params = inputdlg({'Number of scans:','Number of slices:','Number of dummies:', 'TR:', 'Onset slice:'}, 'Parameters for physio');
+    
     % scan parameters
     matlabbatch{1}.spm.tools.physio.log_files.sampling_interval = [];
     matlabbatch{1}.spm.tools.physio.log_files.relative_start_acquisition = 0;
     matlabbatch{1}.spm.tools.physio.log_files.align_scan = 'last'; % sometimes first, sometimes last
-    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Nslices = nr_slices;
+    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Nslices = str2double(input_params{2});
     matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.NslicesPerBeat = [];
-    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.TR = TR;
-    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Ndummies = nr_dummies;
-    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Nscans = nr_scans;
-    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.onset_slice = onset_slice;
+    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.TR = str2double(input_params{4});
+    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Ndummies = str2double(input_params{3});
+    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.Nscans = str2double(input_params{1});
+    matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.onset_slice = str2double(input_params{5});
     matlabbatch{1}.spm.tools.physio.scan_timing.sqpar.time_slice_to_slice = [];
 
     % template

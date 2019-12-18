@@ -495,6 +495,8 @@ gui_data = guidata(fig);
 gui_data.functional0_fn = [gui_data.functional4D_fn ',1'];
 % Preprocess structural and f0 images
 [d, f, e] = fileparts(gui_data.structural_fn);
+disp(d);
+disp(f);
 if exist([d filesep 'rc1' f e], 'file')
     % 1) If preprocessing has already been done, assign variables
     gui_data.preProc_status = 1;
@@ -1469,8 +1471,15 @@ function physioBatch(hObject,eventdata)
     vendor = gui_data.popup_setVendor.String(gui_data.popup_setVendor.Value);
     disp("Vendor:");
     disp(vendor);
-    wrapper_physiobatch('BIDS', 16, 1.45, 408, 0, 1, 'C:\Users\nwiedemann\Downloads\physio_out');
-    % wrapper_physiobatch(data_vendor, nr_slices, TR, nr_scans, nr_dummies, onset_slice, out_dir);
+    
+    %% read nr slices and nr scans from nifti header:
+    % hdr = spm_vol('C:\Users\nwiedemann\Downloads\rtQC_sample_data\rtQC_sample_data\sub-opennft\fanon-0007.nii')
+    % nr_scans = length(hdr)
+    % nr_slices = hdr(1).dim(3)
+    %%
+    % parameter for BIDS template: 16, 1.45, 408, 0, 1,
+    disp([gui_data.qc_out_dir filesep 'physio_dir']);
+    wrapper_physiobatch(char(vendor), [gui_data.qc_out_dir filesep 'physio_dir']);
 end
 
 function showFDoutliers(hObject,eventdata)
