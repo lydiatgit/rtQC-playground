@@ -1465,21 +1465,33 @@ web(url, '-browser')
 end
 
 function physioBatch(hObject,eventdata)
+    % check if physio is installed:
+    pathCell = regexp(path, pathsep, 'split');
+    if ispc  % Windows is not case-sensitive
+      onPath = any(contains(pathCell, 'PhysIO'));
+    else
+      onPath = any(contains(pathCell, 'PhysIO'));
+    end
+    if ~onPath
+        disp("ERROR: Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.");
+    end
+    
+    % get guidata
     fig = ancestor(hObject,'figure');
     gui_data = guidata(fig);
     
     vendor = gui_data.popup_setVendor.String(gui_data.popup_setVendor.Value);
-    disp("Vendor:");
-    disp(vendor);
-    
+   
     %% read nr slices and nr scans from nifti header:
     % hdr = spm_vol('C:\Users\nwiedemann\Downloads\rtQC_sample_data\rtQC_sample_data\sub-opennft\fanon-0007.nii')
     % nr_scans = length(hdr)
     % nr_slices = hdr(1).dim(3)
     %%
-    % parameter for BIDS template: 16, 1.45, 408, 0, 1,
-    disp([gui_data.qc_out_dir filesep 'physio_dir']);
-    wrapper_physiobatch(char(vendor), [gui_data.qc_out_dir filesep 'physio_dir']);
+    % default path for spm inputs:
+    default_path = gui_data.data_dir;
+    % 'C:\Users\nwiedemann\Downloads\tapas\tapas\misc\example\PhysIO';
+    
+    wrapper_physiobatch(char(vendor), gui_data.qc_out_dir, default_path);
 end
 
 function showFDoutliers(hObject,eventdata)

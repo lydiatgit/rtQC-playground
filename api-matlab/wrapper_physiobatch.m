@@ -1,13 +1,10 @@
-function matlabbatch = wrapper_physiobatch(data_vendor, out_dir)
+function matlabbatch = wrapper_physiobatch(data_vendor, out_dir, default_path)
     spm_jobman('initcfg');
     global defaults
     defaults.stats.maxmem   = 2^30;
     matlabbatch = {};
     
-    % defaul path for spm inputs:
-    default_path = 'C:\Users\nwiedemann\Downloads\tapas\tapas\misc\example\PhysIO';
-    
-    matlabbatch{1}.spm.tools.physio.save_dir = {out_dir};
+    matlabbatch{1}.spm.tools.physio.save_dir = {[out_dir filesep 'physio_dir']};
     matlabbatch{1}.spm.tools.physio.log_files.vendor = data_vendor;
     
     % EXAMPLES IN C:\Users\nwiedemann\Downloads\tapas\tapas\misc\example\PhysIO
@@ -105,9 +102,10 @@ function matlabbatch = wrapper_physiobatch(data_vendor, out_dir)
     matlabbatch{1}.spm.tools.physio.verbose.fig_output_file = '';
     matlabbatch{1}.spm.tools.physio.verbose.use_tabs = false;
     
-%     % alternatively: just save batch
-%     save(out_dir, 'matlabbatch');
-%     disp("Saved matlabbatch.");
+    % save batch
+     save([out_dir filesep 'physio_batch'], 'matlabbatch');
+     disp("Saved matlabbatch in:");
+     disp(out_dir);
         
-    spm_jobman('run',matlabbatch);
+    % spm_jobman('run',matlabbatch);
 end
