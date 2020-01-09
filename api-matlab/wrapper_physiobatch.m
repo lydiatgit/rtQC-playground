@@ -11,51 +11,43 @@ function matlabbatch = wrapper_physiobatch(data_vendor, out_dir, default_path)
     
     % different vendor options require different file input
     if strcmp(data_vendor, 'BIDS')
-        [tsv_filename, ~] = spm_select(1,'.*.tsv.*','Specify tsv/tsv.gz file with ECG data',{}, default_path);
-        % tsv_filename = input(['For BIDS, you only need to specify the tsv/tsv.gz file containing 3 columns without header.' ...
-         % 'There must be a json with the same file name in the same folder containing metainformation'], 's');
+        [tsv_filename, ~] = uigetfile('*.tsv*','Specify tsv/tsv.gz file with ECG data',default_path);
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {tsv_filename}; 
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {''}; 
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {''};
     elseif strcmp(data_vendor, 'Philips')
-        [scanphyslog, ~] = spm_select(1,'.*.log','Specify SCANPHYSLOG.log file',{}, default_path);
-        % scanphyslog = input('Specify file path to SCANPHYSLOG.log file', 's');
+        [scanphyslog, ~] = uigetfile('*.log','Specify SCANPHYSLOG.log file', default_path);
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {scanphyslog}; 
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {scanphyslog}; 
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {scanphyslog}; % or empty?
     elseif strcmp(data_vendor, 'Biopac_Txt')
-        [scanphyslog, ~] = spm_select(1,'.*.txt','Specify biopac data export txt file',{}, default_path);
+        [scanphyslog, ~] = uigetfile('*.txt','Specify biopac data export txt file', default_path);
         % scanphyslog = input('Specify file path to the biopac data export txt file', 's');
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {scanphyslog}; 
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {scanphyslog}; 
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {scanphyslog};
      elseif strcmp(data_vendor, 'GE')
-        [cardiac, ~] = spm_select(1,'any','Specify cardiac file (starting with ECGData_)',{}, default_path);
+        [cardiac, ~] = uigetfile('*.*','Specify cardiac file (starting with ECGData_)', default_path);
         % cardiac = input('Specify file path to the cardiac file (in template starting with ECGData_)', 's');
-        [respiration, ~] = spm_select(1,'any','Specify respiration file (starting with RespData_)',{}, default_path);
+        [respiration, ~] = uigetfile('*.*','Specify respiration file (starting with RespData_)', default_path);
         % respiration = input('Specify file path to the respiration file (in template starting with RespData_)', 's');
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {cardiac};
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {respiration};
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {''};
      elseif strcmp(data_vendor, 'Siemens_HCP')
-        [physiolog, ~] = spm_select(1,'any','Specify physio data file (sth like tfMRI_MOTOR_LR_Physio_log.txt)',{}, default_path);
-        % physiolog = input('Specify file path to the tfMRI_MOTOR_LR_Physio_log.txt file', 's');
+        [physiolog, ~] = uigetfile('*.*','Specify physio data file (sth like tfMRI_MOTOR_LR_Physio_log.txt)', default_path);
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {physiolog};
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {physiolog};
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {''};
      elseif strcmp(data_vendor, 'Siemens')
-        [physiolog, ~] = spm_select(1,'.*.ecg','Specify physio data file (siemens_PAV.ecg)',{}, default_path);
-        % physiolog = input('Specify file path to the siemens_PAV.ecg file', 's');
+        [physiolog, ~] = uigetfile('*.ecg','Specify physio data file (siemens_PAV.ecg)', default_path);
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {physiolog};
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {''};
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {''}; 
      elseif strcmp(data_vendor, 'Siemens_Tics')
-        [cardiac, ~] = spm_select(1,'.*.log','Specify cardiac file (..._PULS.log)',{}, default_path);
-        % cardiac = input('Specify file path to the cardiac file (in template ending with _PULS.log)', 's');
-        [respiration, ~] = spm_select(1,'.*.log','Specify respiration file (..._RESP.log)',{}, default_path);
-        % respiration = input('Specify file path to the respiration file (in template ending with _RESP.log)', 's');
-        [timing, ~] = spm_select(1,'.*.log','Specify scan timing file (..._Info.log)',{}, default_path);
-        % timing = input('Specify file path to the scan timing file (in template ending with _Info.log)', 's');
+        [cardiac, ~] = uigetfile('*.log','Specify cardiac file (..._PULS.log)', default_path);
+        [respiration, ~] = uigetfile('*.log','Specify respiration file (..._RESP.log)', default_path);
+        [timing, ~] = uigetfile('*.log','Specify scan timing file (..._Info.log)', default_path);
         matlabbatch{1}.spm.tools.physio.log_files.cardiac = {cardiac};
         matlabbatch{1}.spm.tools.physio.log_files.respiration = {respiration};
         matlabbatch{1}.spm.tools.physio.log_files.scan_timing = {timing};
@@ -104,8 +96,7 @@ function matlabbatch = wrapper_physiobatch(data_vendor, out_dir, default_path)
     
     % save batch
      save([out_dir filesep 'physio_batch'], 'matlabbatch');
-     disp("Saved matlabbatch in:");
-     disp(out_dir);
+     msgbox(['Saved matlabbatch in: ' out_dir], 'Success');
         
     % spm_jobman('run',matlabbatch);
 end
