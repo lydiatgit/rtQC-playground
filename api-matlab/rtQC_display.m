@@ -1467,13 +1467,9 @@ end
 function physioBatch(hObject,eventdata)
     % check if physio is installed:
     pathCell = regexp(path, pathsep, 'split');
-    if ispc  % Windows is not case-sensitive
-      onPath = any(contains(pathCell, 'PhysIO'));
-    else
-      onPath = any(contains(pathCell, 'PhysIO'));
-    end
+    onPath = any(contains(pathCell, 'PhysIO'));
     if ~onPath
-        error("ERROR: Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.");    
+        errordlg('Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.');    
     end
     
     % get guidata
@@ -1481,6 +1477,9 @@ function physioBatch(hObject,eventdata)
     gui_data = guidata(fig);
     
     vendor = gui_data.popup_setVendor.String(gui_data.popup_setVendor.Value);
+    if strcmp(vendor, 'select vendor...')
+        errordlg('First set vendor in drop down menu to the right of the button.');    
+    end
    
     %% read nr slices and nr scans from nifti header:
     % hdr = spm_vol('C:\Users\nwiedemann\Downloads\rtQC_sample_data\rtQC_sample_data\sub-opennft\fanon-0007.nii')
