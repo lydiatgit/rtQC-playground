@@ -34,6 +34,7 @@ gui_data.tab_info = uitab('Parent', gui_data.tgroup, 'Title', 'Info');
 gui_data.tab_pre = uitab('Parent', gui_data.tgroup, 'Title', 'Pre QC');
 gui_data.tab_online = uitab('Parent', gui_data.tgroup, 'Title', 'Online QC');
 gui_data.tab_post = uitab('Parent', gui_data.tgroup, 'Title', 'Post QC');
+gui_data.tab_settings = uitab('Parent', gui_data.tgroup, 'Title', 'Settings');
 
 % Set variable values
 gui_data.current_dir = mfilename('fullpath');
@@ -1088,6 +1089,7 @@ removeAxesXTickLabels(gui_data.ax_DVARS_offline);
 % set(get(gui_data.panel_qcsummaryR,'Children'),'Enable','off')
 % set(children(strcmpi ( get (children,'Type'),'UIControl')),'enable','off')
 
+settings_tab;
 
 
 % Save GUI data

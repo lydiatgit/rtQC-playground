@@ -117,6 +117,34 @@ gui_data.QCtgroup.SelectionChangedFcn = @QCtabChangedCallback;
 gui_data.pb_open_qc_post.Callback = @generateReport;
 gui_data.pb_get_physio_batch.Callback = @physioBatch;
 
+% settings callback
+gui_data.editphysio_save_dir.Callback = @editphysio_save_dir ;
+gui_data.editlog_files_sampling_interval.Callback = @editlog_files_sampling_interval ;
+gui_data.editlog_files_relative_start_acquisition.Callback = @editlog_files_relative_start_acquisition ;
+gui_data.editlog_files_align_scan.Callback = @editlog_files_align_scan ;
+gui_data.editsqpar_NslicesPerBeat.Callback = @editsqpar_NslicesPerBeat ;
+gui_data.editsqpar_time_slice_to_slice.Callback = @editsqpar_time_slice_to_slice ;
+gui_data.editsqpar_Nprep.Callback = @editsqpar_Nprep ;
+gui_data.editsync_nominal.Callback = @editsync_nominal ;
+gui_data.editauto_matched_min.Callback = @editauto_matched_min ;
+gui_data.editauto_matched_file.Callback = @editauto_matched_file ;
+gui_data.editposthoc_cpulse_select_off.Callback = @editposthoc_cpulse_select_off ;
+gui_data.editmodel_output_multiple_regressors.Callback = @editmodel_output_multiple_regressors ;
+gui_data.editmodel_output_physio.Callback = @editmodel_output_physio ;
+gui_data.editmodel_orthogonalise.Callback = @editmodel_orthogonalise ;
+gui_data.editmodel_censor_unreliable_recording_intervals.Callback = @editmodel_censor_unreliable_recording_intervals ;
+gui_data.editorder_c.Callback = @editorder_c ;
+gui_data.editorder_r.Callback = @editorder_r ;
+gui_data.editorder_cr.Callback = @editorder_cr ;
+gui_data.editrvt_no.Callback = @editrvt_no ;
+gui_data.edithrv_no.Callback = @edithrv_no ;
+gui_data.editnoise_rois_no.Callback = @editnoise_rois_no ;
+gui_data.editmovement_no.Callback = @editmovement_no ;
+gui_data.editother_no.Callback = @editother_no ;
+gui_data.editverbose_level.Callback = @editverbose_level ;
+gui_data.editverbose_fig_output_file.Callback = @editverbose_fig_output_file ;
+gui_data.editverbose_use_tabs.Callback = @editverbose_use_tabs ;
+
 
 set(findall(fig, '-property', 'Interruptible'), 'Interruptible', 'on')
 
@@ -207,6 +235,119 @@ gui_data = guidata(fig);
 gui_data.tgroup.SelectedTab = gui_data.tab_online;
 guidata(fig,gui_data)
 end
+
+%%%% start settings tab functions
+
+function editphysio_save_dir (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editlog_files_sampling_interval (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editlog_files_relative_start_acquisition (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editlog_files_align_scan (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editsqpar_NslicesPerBeat (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editsqpar_time_slice_to_slice (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editsqpar_Nprep (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editsync_nominal (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editauto_matched_min (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editauto_matched_file (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editposthoc_cpulse_select_off (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editmodel_output_multiple_regressors (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editmodel_output_physio (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editmodel_orthogonalise (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editmodel_censor_unreliable_recording_intervals (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editorder_c (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editorder_r (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editorder_cr (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editrvt_no (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function edithrv_no (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editnoise_rois_no (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editmovement_no (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editother_no (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editverbose_level (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+function editverbose_fig_output_file(hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+txt = get(hObject, 'String');
+gui_data.editverbose_fig_output_file.String = txt;
+% assignin('base', 'gui_data', gui_data)
+guidata(fig,gui_data)
+end
+function editverbose_use_tabs (hObject,eventdata)
+fig = ancestor(hObject,'figure');
+gui_data = guidata(fig);
+end
+
+%%%%% end setting tab functions
 
 
 function editFDthreshold(hObject,eventdata)
@@ -459,6 +600,7 @@ if isempty(gui_data.im1_dqchecks_fn) || isempty(gui_data.im2_dqchecks_fn)
     errordlg('Please select two images (online and offline) to compare');
     return;
 end
+
 
 msgbox('Functionality to be added: plot 2D histogram and display mutual information measure');
 % slice_nr = 20;
@@ -1223,7 +1365,6 @@ end
 end
 
 
-
 % Offline tab functions
 
 function runOfflineQC(hObject,eventdata)
@@ -1432,7 +1573,7 @@ dt = datetime('now');
 dt_str = [num2str(Y) num2str(MO) num2str(D) num2str(H) num2str(MI) num2str(round(S))];
 t = datestr(dt);
 log_name = [gui_data.subject_id '_' dt_str '.html'];
-fid = fopen(log_name,'a');
+fid = fopen([gui_data.qc_out_dir filesep log_name],'a');
 fprintf(fid, '<H2>Log</H2>');
 fprintf(fid, ['\n<BR>Subject:  ' gui_data.subject_id]);
 fprintf(fid, ['\n<BR>Date/time:  ' t]);
@@ -1458,19 +1599,23 @@ fprintf(fid, '\n<TABLE><TR><TD><img src="stddev_epi.png" alt="no picture" width=
 fprintf(fid, '\n<TABLE><TR><TD><img src="tsnr_whole.png" alt="no picture" width=700 height=600></TD></TR></TABLE>' );
 fprintf(fid, '\n<TABLE><TR><TD><img src="tsnr_brain.png" alt="no picture" width=700 height=600></TD></TR></TABLE>' );
 fprintf(fid, '\n<TABLE><TR><TD><img src="mask_contour.png" alt="no picture" width=700 height=700></TD></TR></TABLE>' );
+% add physio plots
+phys_dir = gui_data.edit_physio_save_dir.String;
+if exist([gui_data.qc_out_dir filesep phys_dir])
+    fprintf(fid, '<H2>Physio processing plots</H2>');
+    figure_file_gen = split(gui_data.edit_verbose_fig_output_file.String, '.');
+    figure_file = cell2mat(join([figure_file_gen(1) '_05.' figure_file_gen(2)], ''));
+    img_to_plot =  [phys_dir '/' figure_file]; % possible option (this works if in settings tab just allow input of directory name
+    % add other figures
+    fprintf(fid, sprintf('\n<TABLE><TR><TD><img src="%s" alt="no picture" width=700 height=600></TD></TR></TABLE>', img_to_plot));
+end
 fclose(fid);
 url = ['file:///' gui_data.qc_out_dir filesep log_name];
-web(url, '-browser')
+web(url, '-browser');
 
 end
 
 function physioBatch(hObject,eventdata)
-    % check if physio is installed:
-    pathCell = regexp(path, pathsep, 'split');
-    onPath = any(contains(pathCell, 'PhysIO'));
-    if ~onPath
-        errordlg('Physio toolbox not installed or not added to path. Follow installation instructions on https://github.com/translationalneuromodeling/tapas.');    
-    end
     
     % get guidata
     fig = ancestor(hObject,'figure');
@@ -1486,11 +1631,11 @@ function physioBatch(hObject,eventdata)
     % nr_scans = length(hdr)
     % nr_slices = hdr(1).dim(3)
     %%
-    % default path for spm inputs:
+    % default path for cardiac and respiratory inputs:
     default_path = gui_data.data_dir;
-    % 'C:\Users\nwiedemann\Downloads\tapas\tapas\misc\example\PhysIO';
+    % default_path = 'C:\Users\nwiedemann\Downloads\tapas\tapas\misc\example\PhysIO';
     
-    wrapper_physiobatch(char(vendor), gui_data.qc_out_dir, default_path);
+    wrapper_physiobatch(char(vendor), gui_data.qc_out_dir, default_path, gui_data);
 end
 
 function showFDoutliers(hObject,eventdata)
