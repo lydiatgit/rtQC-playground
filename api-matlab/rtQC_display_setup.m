@@ -1089,8 +1089,9 @@ removeAxesXTickLabels(gui_data.ax_DVARS_offline);
 % set(get(gui_data.panel_qcsummaryR,'Children'),'Enable','off')
 % set(children(strcmpi ( get (children,'Type'),'UIControl')),'enable','off')
 
+%% --------------- Create UIcontrols for PRE QC tab -------------------- %%
 settings_tab;
-
+%%
 
 % Save GUI data
 guidata(fig, gui_data)

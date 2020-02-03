@@ -118,36 +118,34 @@ gui_data.pb_open_qc_post.Callback = @generateReport;
 gui_data.pb_get_physio_batch.Callback = @physioBatch;
 
 % settings callback
-gui_data.editphysio_save_dir.Callback = @editphysio_save_dir ;
-gui_data.editlog_files_sampling_interval.Callback = @editlog_files_sampling_interval ;
-gui_data.editlog_files_relative_start_acquisition.Callback = @editlog_files_relative_start_acquisition ;
-gui_data.editlog_files_align_scan.Callback = @editlog_files_align_scan ;
-gui_data.editsqpar_NslicesPerBeat.Callback = @editsqpar_NslicesPerBeat ;
-gui_data.editsqpar_time_slice_to_slice.Callback = @editsqpar_time_slice_to_slice ;
-gui_data.editsqpar_Nprep.Callback = @editsqpar_Nprep ;
-gui_data.editsync_nominal.Callback = @editsync_nominal ;
-gui_data.editauto_matched_min.Callback = @editauto_matched_min ;
-gui_data.editauto_matched_file.Callback = @editauto_matched_file ;
-gui_data.editposthoc_cpulse_select_off.Callback = @editposthoc_cpulse_select_off ;
-gui_data.editmodel_output_multiple_regressors.Callback = @editmodel_output_multiple_regressors ;
-gui_data.editmodel_output_physio.Callback = @editmodel_output_physio ;
-gui_data.editmodel_orthogonalise.Callback = @editmodel_orthogonalise ;
-gui_data.editmodel_censor_unreliable_recording_intervals.Callback = @editmodel_censor_unreliable_recording_intervals ;
-gui_data.editorder_c.Callback = @editorder_c ;
-gui_data.editorder_r.Callback = @editorder_r ;
-gui_data.editorder_cr.Callback = @editorder_cr ;
-gui_data.editrvt_no.Callback = @editrvt_no ;
-gui_data.edithrv_no.Callback = @edithrv_no ;
-gui_data.editnoise_rois_no.Callback = @editnoise_rois_no ;
-gui_data.editmovement_no.Callback = @editmovement_no ;
-gui_data.editother_no.Callback = @editother_no ;
-gui_data.editverbose_level.Callback = @editverbose_level ;
-gui_data.editverbose_fig_output_file.Callback = @editverbose_fig_output_file ;
-gui_data.editverbose_use_tabs.Callback = @editverbose_use_tabs ;
-
+gui_data.edit_physio_save_dir.Callback = @editphysio_save_dir ;
+gui_data.edit_log_files_sampling_interval.Callback = @editlog_files_sampling_interval ;
+gui_data.edit_log_files_relative_start_acquisition.Callback = @editlog_files_relative_start_acquisition ;
+gui_data.edit_log_files_align_scan.Callback = @editlog_files_align_scan ;
+gui_data.edit_sqpar_NslicesPerBeat.Callback = @editsqpar_NslicesPerBeat ;
+gui_data.edit_sqpar_time_slice_to_slice.Callback = @editsqpar_time_slice_to_slice ;
+gui_data.edit_sqpar_Nprep.Callback = @editsqpar_Nprep ;
+gui_data.edit_sync_nominal.Callback = @editsync_nominal ;
+gui_data.edit_auto_matched_min.Callback = @editauto_matched_min ;
+gui_data.edit_auto_matched_file.Callback = @editauto_matched_file ;
+gui_data.edit_posthoc_cpulse_select_off.Callback = @editposthoc_cpulse_select_off ;
+gui_data.edit_model_output_multiple_regressors.Callback = @editmodel_output_multiple_regressors ;
+gui_data.edit_model_output_physio.Callback = @editmodel_output_physio ;
+gui_data.edit_model_orthogonalise.Callback = @editmodel_orthogonalise ;
+gui_data.edit_model_censor_unreliable_recording_intervals.Callback = @editmodel_censor_unreliable_recording_intervals ;
+gui_data.edit_order_c.Callback = @editorder_c; 
+gui_data.edit_order_r.Callback = @editorder_r ;
+gui_data.edit_order_cr.Callback = @editorder_cr ;
+gui_data.edit_rvt_no.Callback = @editrvt_no ;
+gui_data.edit_hrv_no.Callback = @edithrv_no ;
+gui_data.edit_noise_rois_no.Callback = @editnoise_rois_no ;
+gui_data.edit_movement_no.Callback = @editmovement_no ;
+gui_data.edit_other_no.Callback = @editother_no ;
+gui_data.edit_verbose_level.Callback = @editverbose_level ;
+gui_data.edit_verbose_fig_output_file.Callback = @editverbose_fig_output_file ;
+gui_data.edit_verbose_use_tabs.Callback = @editverbose_use_tabs ;
 
 set(findall(fig, '-property', 'Interruptible'), 'Interruptible', 'on')
-
 % Make figure visible after normalizing units
 set(findall(fig, '-property', 'Units'), 'Units', 'Normalized')
 fig.Visible = 'on';
@@ -369,7 +367,6 @@ end
 % assignin('base', 'gui_data', gui_data)
 guidata(fig,gui_data)
 end
-
 
 function editSPMdir(hObject,eventdata)
 fig = ancestor(hObject,'figure');
