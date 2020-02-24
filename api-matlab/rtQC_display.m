@@ -145,6 +145,8 @@ gui_data.edit_verbose_level.Callback = @editverbose_level ;
 gui_data.edit_verbose_fig_output_file.Callback = @editverbose_fig_output_file ;
 gui_data.edit_verbose_use_tabs.Callback = @editverbose_use_tabs ;
 
+gui_data.export_settings.Callback = @export_settings;
+
 set(findall(fig, '-property', 'Interruptible'), 'Interruptible', 'on')
 % Make figure visible after normalizing units
 set(findall(fig, '-property', 'Units'), 'Units', 'Normalized')
@@ -235,6 +237,34 @@ guidata(fig,gui_data)
 end
 
 %%%% start settings tab functions
+
+function export_settings(hObject,eventdata)
+    fig = ancestor(hObject,'figure');
+    gui_data = guidata(fig);
+    panels = {'general', 'physio', 'new'};
+    labels = {};
+    values = {};
+    counter = 1;
+    for i=1:length(panels)
+        children = eval(['gui_data.panel_set_' panels{i} '.Children']);
+        for j=1:length(children)
+            if strcmp(children(j).Style, 'text')
+                name = children(j).String;
+                name = strrep(name, '.', '_');
+                matching_edit = eval(['gui_data.edit_' name '.String']);
+                labels{counter} = [panels{i} '_' name];
+                values{counter} = matching_edit;
+                counter = counter+1;
+            end
+        end
+    end
+    % save to json file
+    enc = jsonencode(containers.Map(labels, values));
+    fid = fopen([gui_data.qc_out_dir filesep 'settings.json'], 'wt');
+    fprintf(fid, '%s', enc);
+    fclose(fid);
+    msgbox(['Saved settings in: ' gui_data.qc_out_dir], 'Success');
+end
 
 function editphysio_save_dir (hObject,eventdata)
 fig = ancestor(hObject,'figure');
